@@ -1,4 +1,5 @@
 import React from "react"
+import Product from "./Product"
 
 class Products extends React.Component {
 	render() {
@@ -8,11 +9,7 @@ class Products extends React.Component {
 				{products.map(product => {
 					return (
 						<div className="row" key={product.id}>
-							<div className="col-md-4">
-								<div className="thumbnail text-center">
-									{product.title}
-								</div>
-							</div>
+							<Product product={product} />
 						</div>
 					)
 				})}
