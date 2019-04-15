@@ -3,14 +3,16 @@ import Product from "./Product"
 
 class Products extends React.Component {
 	render() {
-		const { products } = this.props
+		const { products, handleAddToCart } = this.props
 		return (
-			<div>
+			<div className="row">
 				{products.map(product => {
 					return (
-						<div className="row" key={product.id}>
-							<Product product={product} />
-						</div>
+						<Product
+							key={product.id}
+							product={product}
+							addToCart={handleAddToCart}
+						/>
 					)
 				})}
 			</div>
