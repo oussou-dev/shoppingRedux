@@ -1,2 +1,0 @@
-# shoppingRedux
-Created with CodeSandbox
