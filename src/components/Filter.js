@@ -11,7 +11,7 @@ class Filter extends React.Component {
 		} = this.props
 		return (
 			<div className="row">
-				<div className="col-md-4">{count} products found</div>
+				<div className="col-md-4 lead">{count} product(s) found</div>
 				<div className="col-md-4">
 					<label>
 						Order by
@@ -35,12 +35,12 @@ class Filter extends React.Component {
 							onChange={handleChangeSize}
 						>
 							<option value=""> All</option>
-							<option value="x"> XS</option>
-							<option value="s"> S</option>
-							<option value="m"> M</option>
-							<option value="l"> L</option>
-							<option value="xl"> XL</option>
-							<option value="xxl"> XXL</option>
+							<option value="x">XS</option>
+							<option value="s">S</option>
+							<option value="m">M</option>
+							<option value="l">L</option>
+							<option value="xl">XL</option>
+							<option value="xxl">XXL</option>
 						</select>
 					</label>
 				</div>

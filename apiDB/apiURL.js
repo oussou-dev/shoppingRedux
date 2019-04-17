@@ -1,2 +1,2 @@
 export const apiURL =
-	"https://www.mocky.io/v2/5cb4816d3300006a4411bb2e"
+	"https://www.mocky.io/v2/5cb4bf34330000992111bceb"

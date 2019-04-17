@@ -3,7 +3,7 @@ import Product from "./Product"
 
 class Products extends React.Component {
 	render() {
-		const { products, handleAddToCart } = this.props
+		const { products, addToCart } = this.props
 		return (
 			<div className="row">
 				{products.map(product => {
@@ -11,7 +11,7 @@ class Products extends React.Component {
 						<Product
 							key={product.id}
 							product={product}
-							addToCart={handleAddToCart}
+							addToCart={addToCart}
 						/>
 					)
 				})}

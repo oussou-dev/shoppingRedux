@@ -19,7 +19,7 @@ class Product extends React.Component {
 						<b>{util.formatCurrency(product.price)}</b>
 						<button
 							className="btn btn-primary"
-							onClick={e => addToCart(e, product)}
+							onClick={() => addToCart(product)}
 						>
 							Add To Cart
 						</button>

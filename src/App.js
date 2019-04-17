@@ -3,6 +3,7 @@ import "./App.css"
 import Products from "./components/Products"
 import { apiURL } from "../apiDB/apiURL"
 import Filter from "./components/Filter"
+import Cart from "./components/Cart"
 
 class App extends React.Component {
 	constructor(props) {
@@ -10,19 +11,28 @@ class App extends React.Component {
 
 		this.state = {
 			products: [],
-			filteredProducts: []
+			filteredProducts: [],
+			cartItems: []
 		}
 	}
 
 	componentWillMount() {
 		fetch(apiURL)
 			.then(res => res.json())
-			.then(data => {
+			.then(data =>
 				this.setState({
 					products: data,
 					filteredProducts: data
 				})
+			)
+
+		if (localStorage.getItem("cartItems")) {
+			// console.log(localStorage.getItem("cartItems"))
+			this.setState({
+				cartItems: JSON.parse(localStorage.getItem("cartItems"))
 			})
+			// console.log(localStorage.getItem("cartItems"))
+		}
 	}
 
 	handleAddToCart = () => {
@@ -72,14 +82,64 @@ class App extends React.Component {
 		})
 	}
 
+	handleAddToCart = product => {
+		{
+			/* 
+			this.setState(state => {
+			const cartItems = state.cartItems
+			let productAlreadyInCart = false
+			cartItems.forEach(item => {
+				if (item.id === product.id) {
+					productAlreadyInCart = true
+					item.count++
+				}
+			})
+			if (!productAlreadyInCart) {
+				cartItems.push({ ...product, count: 1 })
+			}
+			localStorage.setItem("cartItems", JSON.stringify(cartItems))
+			return cartItems
+		})
+		*/
+		}
+
+		const cartItems = [...this.state.cartItems]
+		let productAlreadyInCart = false
+		cartItems.forEach(item => {
+			if (item.id === product.id) {
+				productAlreadyInCart = true
+				item.count++
+			}
+		})
+		if (!productAlreadyInCart) {
+			cartItems.push({ ...product, count: 1 })
+		}
+		localStorage.setItem("cartItems", JSON.stringify(cartItems))
+
+		this.setState({ cartItems: cartItems })
+	}
+
+	handleRemoveCart = item => {
+		// cartItems.splice(item, 1)
+		const cartItems = [...this.state.cartItems].filter(
+			elm => elm.id !== item.id
+		)
+		// console.log(cartItems)
+		localStorage.setItem("cartItems", JSON.stringify(cartItems))
+		this.setState({
+			cartItems: cartItems
+		})
+	}
+
 	render() {
 		// console.log(data)
 		return (
 			<div className="container">
-				<div class="jumbotron py-3">
-					<h1 class=" text-center display-6">
+				<div className="jumbotron py-3">
+					<h1 className=" text-center display-6">
 						Mini Shopping Cart App
 					</h1>
+					<p className="text-center">React / Redux / Fetch API</p>
 				</div>
 				{/* <h1 className="text-center">Mini Shopping Cart App</h1> */}
 				{/* <hr /> */}
@@ -96,11 +156,14 @@ class App extends React.Component {
 						<hr />
 						<Products
 							products={this.state.filteredProducts}
-							handleAddToCart={this.handleAddToCart}
+							addToCart={this.handleAddToCart}
 						/>
 					</div>
 					<div className="col-md-4">
-						<p>col-md-4</p>
+						<Cart
+							cartItems={this.state.cartItems}
+							handleRemoveFromCart={this.handleRemoveCart}
+						/>
 					</div>
 				</div>
 			</div>
